@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yang Luo - Homepage</title>
+  <style>
+    /* --- 基础与全局样式 --- */
+    :root {
+      --primary-color: #8c1515; /* 经典的学术深红色点缀 */
+      --text-main: #2b2b2b;
+      --text-muted: #555555;
+      --border-color: #eaecef;
+      --bg-light: #f8f9fa;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      color: var(--text-main);
+      line-height: 1.65;
+      background-color: #ffffff;
+    }
+
+    a { color: var(--primary-color); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* --- 顶部导航栏 --- */
+    .navbar {
+      border-bottom: 1px solid var(--border-color);
+      background: #ffffff;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      padding: 15px 0;
+    }
+    .nav-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 30px;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-weight: bold;
+      font-size: 1.05em;
+    }
+    .nav-container a { color: #444; }
+    .nav-container a.active, .nav-container a:hover { color: var(--primary-color); }
+
+    /* --- 页面主体布局 --- */
+    .container {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 0 20px;
+      display: flex;
+      gap: 60px;
+    }
+
+    /* --- 左侧侧边栏 (个人信息) --- */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      text-align: center;
+    }
+    .avatar-wrapper {
+      width: 180px;
+      height: 180px;
+      margin: 0 auto 20px auto;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid var(--border-color);
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+    .avatar-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .name {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.6em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #111;
+    }
+    .bio-title {
+      font-size: 0.92em;
+      color: var(--text-muted);
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+    .contact-info {
+      text-align: left;
+      font-size: 0.9em;
+      border-top: 1px solid var(--border-color);
+      padding-top: 15px;
+    }
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+      color: var(--text-muted);
+    }
+    .contact-item i { width: 24px; font-style: normal; }
+
+    /* --- 右侧内容区 --- */
+    .content {
+      flex-grow: 1;
+      min-width: 0;
+    }
+    h2 {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.5em;
+      border-bottom: 1px solid var(--border-color);
+      padding-bottom: 8px;
+      margin: 35px 0 18px 0;
+      color: #111;
+    }
+    h2:first-of-type { margin-top: 0; }
+    h3 {
+      font-size: 1.15em;
+      margin: 20px 0 10px 0;
+      color: #333;
+    }
+    
+    p { margin-bottom: 15px; text-align: justify; }
+
+    /* --- News 列表 --- */
+    .news-list {
+      list-style: none;
+    }
+    .news-list li {
+      margin-bottom: 12px;
+      position: relative;
+      padding-left: 20px;
+    }
+    .news-list li::before {
+      content: "▪";
+      color: var(--primary-color);
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+    .date-badge {
+      font-weight: 600;
+      color: #333;
+    }
+
+    /* --- Publications 列表 --- */
+    .pub-item {
+      margin-bottom: 22px;
+    }
+    .pub-title {
+      font-weight: 600;
+      color: #111;
+      font-size: 1.02em;
+    }
+    .pub-authors {
+      font-size: 0.95em;
+      color: var(--text-muted);
+      margin: 3px 0;
+    }
+    .pub-authors strong {
+      color: #000;
+      text-decoration: underline;
+    }
+    .pub-venue {
+      font-style: italic;
+      font-size: 0.95em;
+      color: #444;
+    }
+    
+    /* --- 徽章标签 (PDF / DOI / Repo) --- */
+    .badge {
+      display: inline-block;
+      font-size: 0.75em;
+      font-weight: bold;
+      color: #fff;
+      padding: 1px 6px;
+      border-radius: 3px;
+      margin-left: 6px;
+      vertical-align: middle;
+      font-family: sans-serif;
+    }
+    .badge-pdf { background-color: #d9534f; }
+    .badge-doi { background-color: #0275d8; }
+    .badge-repo { background-color: #f0ad4e; }
+
+    /* --- 移动端自适应适配 --- */
+    @media (max-width: 768px) {
+      .container { flex-direction: column; gap: 30px; }
+      .sidebar { width: 100%; }
+      .nav-container { flex-wrap: wrap; gap: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 顶部导航栏 -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="active">Homepage</a>
+      <a href="#about">About Me</a>
+      <a href="#news">News</a>
+      <a href="#publications">Publications</a>
+      <a href="#services">Services</a>
+    </div>
+  </nav>
+
+  <!-- 主体内容 -->
+  <div class="container">
+    
+    <!-- 左侧个人信息栏 -->
+    <aside class="sidebar">
+      <div class="avatar-wrapper">
+        <!-- 替换为你自己的头像图片地址，可以直接放 GitHub 仓库里命名为 avatar.jpg -->
+        <img src="https://via.placeholder.com/200x200.png?text=Yang+Luo" alt="Yang Luo">
+      </div>
+      <div class="name">Yang Luo</div>
+      <div class="bio-title">
+        Ph.D. Student @<br>
+        Beijing University of Posts and Telecommunications (BUPT)
+      </div>
+      
+      <div class="contact-info">
+        <div class="contact-item">📍 Beijing, China</div>
+        <div class="contact-item">📧 <a href="mailto:luoyang001@bupt.edu.cn">luoyang001@bupt.edu.cn</a></div>
+        <div class="contact-item">🐙 <a href="https://github.com/xiaoxiaohg8d" target="_blank">Github</a></div>
+        <div class="contact-item">🎓 <a href="#">Google Scholar</a></div>
+      </div>
+    </aside>
+
+    <!-- 右侧学术详细介绍 -->
+    <main class="content">
+      
+      <!-- About Me -->
+      <section id="about">
+        <h2>About Me</h2>
+        <p>
+          Hello! I am <strong>Yang Luo (杨罗)</strong>, currently a Ph.D. student affiliated with the 
+          <em>Key Laboratory of Trustworthy Distributed Computing and Service (MoE)</em> at the 
+          <strong>Beijing University of Posts and Telecommunications (BUPT)</strong>, and a member of the Academician Fang Binxing Workstation.
+        </p>
+        <p>
+          My research interests primarily revolve around <strong>AI Security</strong> and <strong>Trustworthy AI Systems</strong>. Specifically, my recent work focuses on analyzing safety vulnerabilities and structural cognitive overload in Multimodal Large Language Models (MLLMs), investigating graph-based memory poisoning in AI agents (such as tool-use and mobile agents like miClaw), and designing robust defense mechanisms for end-to-end LLM ecosystems.
+        </p>
+        <p>
+          If you are interested in discussing collaboration or research regarding large model vulnerabilities and mobile AI agent defense, feel free to drop me an email!
+        </p>
+      </section>
+
+      <!-- News -->
+      <section id="news">
+        <h2>News</h2>
+        <ul class="news-list">
+          <li>
+            <span class="date-badge">[Apr 2026]</span> 🎉 Our paper <em>"StructBreak: Structural Cognitive Overload-Induced Safety Failures in MLLMs"</em> has been accepted to the Findings of <strong>ACL 2026</strong>!
+          </li>
+          <li>
+            <span class="date-badge">[Mar 2026]</span> Initiated research and system benchmarking on evaluation frameworks for Graph Memory Poisoning in AI Agents (ShadowMerge).
+          </li>
+          <li>
+            <span class="date-badge">[Early 2026]</span> Applied for and advanced mobile AI agent security research proposals focusing on defense frameworks against indirect prompt injections.
+          </li>
+        </ul>
+      </section>
+
+      <!-- Publications -->
+      <section id="publications">
+        <h2>Publications</h2>
+        <p style="font-size: 0.88em; color: var(--text-muted);">(* Corresponding Author / Equal Contribution)</p>
+        
+        <h3>Conference & Findings</h3>
+        
+        <div class="pub-item">
+          <div class="pub-title">
+            StructBreak: Structural Cognitive Overload-Induced Safety Failures in MLLMs
+            <span class="badge badge-pdf">PDF</span>
+            <span class="badge badge-repo">Code</span>
+          </div>
+          <div class="pub-authors">
+            <strong>Yang Luo</strong>, Xinran Liu, Tiantian Ji*, Zhiyi Yin, Lingyun Peng, Shuyu Li
+          </div>
+          <div class="pub-venue">[Findings of ACL 2026] Annual Meeting of the Association for Computational Linguistics</div>
+        </div>
+
+        <h3>Working Papers & Preprints</h3>
+        
+        <div class="pub-item">
+          <div class="pub-title">
+            ShadowMerge: Evaluating Graph Memory Poisoning in AI Agents across Diverse Domains
+            <span class="badge badge-pdf">PDF</span>
+          </div>
+          <div class="pub-authors">
+            <strong>Yang Luo</strong>, et al.
+          </div>
+          <div class="pub-venue">Working Paper / Under Review, 2026</div>
+        </div>
+      </section>
+
+      <!-- Services / Miscellaneous -->
+      <section id="services">
+        <h2>Services & Academic Activities</h2>
+        <ul class="news-list">
+          <li><strong>Focus Areas:</strong> Large Language Model Security, Graph Database Resilience (Neo4j), Distributed GPU Cluster Benchmarking (vLLM / RTX 4090).</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+</body>
+</html>
